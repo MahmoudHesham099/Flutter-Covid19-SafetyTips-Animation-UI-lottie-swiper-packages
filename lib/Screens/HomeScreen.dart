@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:lottie/lottie.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -40,6 +42,79 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      backgroundColor: Color(0xffffc66b),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 20),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 20),
+                    child: Text(
+                      'Covid-19\nSafety Tips',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                ],
+              ),
+              Expanded(
+                child: Swiper(
+                  itemBuilder: (BuildContext context, int index) {
+                    return Column(
+                      children: [
+                        Container(
+                          height: 300,
+                          width: MediaQuery.of(context).size.width,
+                          margin: EdgeInsets.symmetric(horizontal: 20),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: Colors.white,
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(20),
+                            child: Lottie.asset(
+                              data[index]['anim'],
+                              fit: BoxFit.fill,
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 30,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                          child: Text(
+                            data[index]['tip'],
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w500,
+                              fontSize: 20,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        )
+                      ],
+                    );
+                  },
+                  itemCount: data.length,
+                  pagination: new SwiperPagination(),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
